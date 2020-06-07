@@ -169,14 +169,30 @@ var FourD = function(){
           
           var coords2d = this.get2DCoords(this.position, camera);
           div.style.transform = `translate(-50%, -50%) translate(${coords2d.x}px,${coords2d.y}px)`;
-          div.style.zIndex = (-coords2d.z * .5 + .5) * 100000 | 0;
+          // div.style.zIndex = (-coords2d.z * .5 + .5) * 100000 | 0;
+
+          // var scale = Math.log(coords2d.z);
+          // div.style.transform = `perspective(400px) scaleZ${scale})`;
         },
         get2DCoords: function(position, camera) {
           var vector = position.project(camera); 
+          
+          var meshPos = this.parent.getWorldPosition();
+          var eye = camera.position.clone().sub(meshPos);
+          var dot = eye.clone().normalize().dot(meshPos.normalize());
+
+          var occluded = dot < 0.0;
+
+          if(occluded){
+            div.style.visibility = "hidden";
+          }else{
+            div.style.visibility = "visible";
+          }
+
           // convert the normalized position to CSS coordinates
           const x = (vector.x *  .5 + .5) * document.querySelector('#display').clientWidth;
           const y = (vector.y * -.5 + .5) * document.querySelector('#display').clientHeight;
-         
+          
           // move the elem to that position
           return {x, y, z: vector.z};
         },
