@@ -828,7 +828,7 @@ var FourD = function(){
     if(controls instanceof THREE.OrbitControls){
       controls.target = selected.object.position.clone();
     }
-    
+
     for(var i=0; i<Label.all.length; i++){
       Label.all[i].updatePosition(camera);
     }

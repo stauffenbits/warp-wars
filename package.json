@@ -1,25 +1,25 @@
 {
-  "name": " ",
+  "name": "warp-wars",
   "version": "0.0.1",
   "description": "",
   "keywords": "",
-  "license": "",
-  "author": "",
+  "license": "MIT",
+  "author": "Joshua Marshall Moore <moore.joshua@pm.me>",
   "scripts": {
-    "build": "parcel build index.html",
+    "build": "parcel build index.html && cp -r img/* dist/img/.",
     "dev": "parcel index.html --open",
     "start": "npm run build && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-nuke-dist": "^1.0.1"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "js": "^0.1.0",
-    "parcel-plugin-nuke-dist": "^1.0.1",
     "popper.js": "^1.16.1",
     "roughjs": "^4.3.1",
     "three": "^0.117.1"
