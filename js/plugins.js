@@ -21,6 +21,7 @@
   }
 }());
 
+document.querySelector('base').href = location.href;
 
 
 
