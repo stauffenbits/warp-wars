@@ -2,6 +2,8 @@
  * @author James Baicoianu / http://www.baicoianu.com/
  */
 
+import * as THREE from '/js/vendor/fourd/r90.three.min.js';
+
 THREE.FlyControls = function ( object, domElement ) {
 
 	this.object = object;
@@ -11,10 +13,10 @@ THREE.FlyControls = function ( object, domElement ) {
 
 	// API
 
-	this.movementSpeed = 1.0;
-	this.rollSpeed = 0.005;
+	this.movementSpeed = 1e2;
+	this.rollSpeed = 1e3;
 
-	this.dragToLook = false;
+	this.dragToLook = true;
 	this.autoForward = false;
 
 	// disable default target object behavior

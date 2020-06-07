@@ -61,6 +61,7 @@
 import $ from '/js/vendor/fourd/jquery.min.js';
 import * as THREE from '/js/vendor/fourd/r90.three.min.js';
 import '/js/vendor/fourd/OrbitControls.js';
+import '/js/vendor/fourd/FlyControls.js';
 import '/js/vendor/fourd/THREEx.WindowResize.js';
 
 var FourD = function(){
@@ -177,17 +178,19 @@ var FourD = function(){
         get2DCoords: function(position, camera) {
           var vector = position.project(camera); 
           
+          var DOT_THRESHOLD = -0.75;
           var meshPos = this.parent.getWorldPosition();
           var eye = camera.position.clone().sub(meshPos);
           var dot = eye.clone().normalize().dot(meshPos.normalize());
 
-          var occluded = dot < 0.0;
+          var occluded = dot < DOT_THRESHOLD;
 
           if(occluded){
             div.style.visibility = "hidden";
           }else{
             div.style.visibility = "visible";
           }
+          
 
           // convert the normalized position to CSS coordinates
           const x = (vector.x *  .5 + .5) * document.querySelector('#display').clientWidth;
@@ -341,10 +344,10 @@ var FourD = function(){
   };
 
   Edge.prototype.paint = function(scene, options){
-    options = options || {
+    options = Object.assign({
       color: 0x007bff,
       paint: true
-    }
+    }, options);
     this.object = line(scene, this.source, this.target, options);
   };
 
@@ -443,8 +446,8 @@ var FourD = function(){
     return edge;
   };
 	
-	Graph.prototype.add_invisible_edge = function(source, target){
-		return this.add_edge(source, target, {opacity: 0.0});
+	Graph.prototype.add_invisible_edge = function(source, target, strength=1.0){
+		return this.add_edge(source, target, {opacity: 0.0, 'strength': strength});
 	}
 
   // api
@@ -910,7 +913,25 @@ var FourD = function(){
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     clock = new THREE.Clock();
-    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    // controls = new THREE.OrbitControls( camera, renderer.domElement );
+    
+    this.toggle_controls = function({camera, renderer}, target){
+      if(controls === undefined){
+        controls = new THREE.FlyControls(camera, renderer.domElement);
+        return;
+      }
+
+      controls.dispose();
+      if(controls instanceof THREE.FlyControls){
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.target.set(target.position);
+      }else if(controls instanceof THREE.OrbitControls){
+        controls = new THREE.FlyControls(camera, renderer.domElement);
+      }
+    }.bind(this, {camera, renderer});
+
+    this.toggle_controls();
+    
     controls.update(clock.getDelta()); 
     controls.movementSpeed = 250;
     controls.domElement = renderer.domElement;
@@ -938,6 +959,21 @@ var FourD = function(){
         }
       }
     };
+
+    that.make_resolve_click = function(fun){
+      $(renderer.domElement).click(function(event){
+        var vertex = null;
+        if(vertex = that.resolve_click(event)){
+          fun(vertex);
+        }else{
+          fun(null);
+        }
+      })
+    }
+
+    that.clear_made_resolve_click = function(){
+      $(renderer.domElement).off('click');;
+    }
     
     var onMouseDown = function(event){
       if(event.target === renderer.domElement){
