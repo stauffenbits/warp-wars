@@ -10,5 +10,5 @@ mv ../dist/*.* .
 git add .
 git commit -m "release"
 git push origin gh-pages
-rm ../dist
+rm ../dist -r
 git checkout master
