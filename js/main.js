@@ -1,13 +1,19 @@
-var $display = $('#display');
+import $ from '/js/vendor/fourd/jquery.min.js';
+
+import FourD from '/js/vendor/fourd/fourd.js';
+
+console.log($)
+console.log(FourD)
+
 var $fourd = new FourD();
-$fourd.init($display, {
+$fourd.init('#display', {
   border: '1px solid 0x007bff',
-  width: $display.width(),
-  height: $display.height(),
+  width: window.innerWidth,
+  height: window.innerHeight,
   background: 0xffffff
 });
 
-$fourd.add_vertex({
-  cube: {size: 10, texture: '/img/role.png'},
+$fourd.graph.add_vertex({
+  cube: {size: 10, color: 0x000000},
   label: {size: 12, text: 'Welcome'}
 });

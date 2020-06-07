@@ -58,6 +58,11 @@
  
 */
 
+import $ from '/js/vendor/fourd/jquery.min.js';
+import * as THREE from '/js/vendor/fourd/r90.three.min.js';
+import '/js/vendor/fourd/OrbitControls.js';
+import '/js/vendor/fourd/THREEx.WindowResize.js';
+
 var FourD = function(){
 
   var that = this;
@@ -987,3 +992,5 @@ var FourD = function(){
   
   return this;
 };
+
+module.exports = FourD;

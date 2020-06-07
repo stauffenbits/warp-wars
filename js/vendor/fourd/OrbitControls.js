@@ -13,6 +13,10 @@
 //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
 //    Pan - right mouse, or arrow keys / touch: three finger swipe
 
+
+import * as THREE from '/js/vendor/fourd/r90.three.min.js';
+
+
 THREE.OrbitControls = function ( object, domElement ) {
 
 	this.object = object;
