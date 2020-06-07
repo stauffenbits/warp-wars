@@ -1,4 +1,3 @@
-'use strict';
 /*
  four-d.js
  Joshua M. Moore
@@ -806,11 +805,12 @@ var FourD = function(){
       renderer,
       graph,
       controls,
+      selected,
       clock, 
       raycaster,
       mouse,
       intersects,
-			render_loop = [];
+      render_loop = [];
       
   var old_intersects,
       old_color;
@@ -824,11 +824,11 @@ var FourD = function(){
     for(var i=0; i<that.render_loop.length; i++){
       that.render_loop[i]();
     }
-      
-    if(that.selected){
-      camera.lookAt(that.selected.position);
-    }
 
+    if(controls instanceof THREE.OrbitControls){
+      controls.target = selected.object.position.clone();
+    }
+    
     for(var i=0; i<Label.all.length; i++){
       Label.all[i].updatePosition(camera);
     }
@@ -911,6 +911,7 @@ var FourD = function(){
     
     camera.position.z = -250;
     camera.lookAt(new THREE.Vector3(0, 0, 0));
+    this.camera = camera;
 
     clock = new THREE.Clock();
     // controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -923,22 +924,25 @@ var FourD = function(){
 
       controls.dispose();
       if(controls instanceof THREE.FlyControls){
+        selected = target;
         controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.target.set(target.position);
+        controls.target = selected.object.position.clone();
       }else if(controls instanceof THREE.OrbitControls){
         controls = new THREE.FlyControls(camera, renderer.domElement);
       }
+
     }.bind(this, {camera, renderer});
 
     this.toggle_controls();
-    
-    controls.update(clock.getDelta()); 
+  
+
+    controls.update(clock.getDelta());
     controls.movementSpeed = 250;
-    controls.domElement = renderer.domElement;
     controls.rollSpeed = Math.PI / 12;
     controls.autoForward = false;
     controls.dragToLook = true;
-    
+
+
     that.intersect_callback = function(object){
       console.log(object.vertex);
     };

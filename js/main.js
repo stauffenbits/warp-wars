@@ -11,6 +11,8 @@ $fourd.init('#display', {
   background: 'rgba(1,1,1,0.5)'
 });
 
+$fourd.camera.position.z = -50;
+
 var PLAYER_COLOR = "cornflowerblue";
 
 var setup_click = function(){
@@ -125,25 +127,25 @@ function clickStar(vertex){
     switch(vertex.type){
       case 'sun':
         closeStar(vertex);
+        $fourd.toggle_controls(vertex);
         break;
 
       case 'planet':
         closePlanet(vertex);
         break;
     }
-    $fourd.toggle_controls(vertex);
  
   }else if(!vertex.opened){
     switch(vertex.type){
       case 'sun':
         openStar(vertex);
+        $fourd.toggle_controls(vertex);
         break;
 
       case 'planet':
         trade(vertex);
         break;
     }
-    $fourd.toggle_controls(vertex);
   }
 }
 
