@@ -937,8 +937,8 @@ var FourD = function(){
   
 
     controls.update(clock.getDelta());
-    controls.movementSpeed = 250;
-    controls.rollSpeed = Math.PI / 12;
+    controls.movementSpeed = 25;
+    controls.rollSpeed = 0.25;
     controls.autoForward = false;
     controls.dragToLook = true;
 
