@@ -14,6 +14,6 @@ $fourd.init('#display', {
 });
 
 $fourd.graph.add_vertex({
-  cube: {size: 10, color: 0x000000},
+  cube: {size: 10, texture: '/img/role.png'},
   label: {size: 12, text: 'Welcome'}
 });
