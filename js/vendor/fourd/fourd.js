@@ -916,7 +916,27 @@ var FourD = function(){
     clock = new THREE.Clock();
     // controls = new THREE.OrbitControls( camera, renderer.domElement );
     
-    this.toggle_controls = function({camera, renderer}, target){
+    this.toggle_controls = function({camera, renderer}, type, target){
+      if(type !== undefined){
+        if(controls !== undefined){
+          controls.dispose();
+        }
+        
+        switch(type){
+          case 'fly':
+            controls = new THREE.FlyControls(camera, renderer.domElement);
+            break;
+
+          case 'orbit':
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            selected = target;
+            controls.target = selected.object.position.clone();
+            break;
+        }
+
+        return;
+      }
+
       if(controls === undefined){
         controls = new THREE.FlyControls(camera, renderer.domElement);
         return;
@@ -933,7 +953,7 @@ var FourD = function(){
 
     }.bind(this, {camera, renderer});
 
-    this.toggle_controls();
+    this.toggle_controls('fly', null);
   
 
     controls.update(clock.getDelta());

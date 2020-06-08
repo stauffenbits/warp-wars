@@ -319,3 +319,11 @@ html, body {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 125;
 }
+
+#hud {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 150 !important;
+}
