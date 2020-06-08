@@ -10,7 +10,7 @@ $fourd.init('#display', {
   background: 'rgba(1,1,1,0.5)'
 });
 
-$fourd.camera.position.z = -25;
+$fourd.camera.position.z = -35;
 
 var Visible = class Visible {
   constructor(){
@@ -21,6 +21,8 @@ var Visible = class Visible {
     this._edge = {
       game_object: this
     }
+
+    this.expanded = false;
   }
 
   get visible(){
@@ -28,19 +30,19 @@ var Visible = class Visible {
   }
 
   draw(){
-    throw "Not implemented!";
+    this.drawn = true;
   }
 
   expand(){
-    throw "Not implemented!";
+    this.expanded = true;
   }
 
   collapse(){
-    throw "Not implemented!";
+    this.expanded = false;
   }
 
   undraw(){
-    throw "Not implemented!";
+    this.drawn = false;
   }
 }
 
@@ -67,6 +69,7 @@ var Universe = class Universe extends Visible {
   draw(){
     this.stars.map(star => star.draw());
     this.lanes.map(lane => lane.draw());
+    super.draw();
   }
 
   get visible(){
@@ -80,6 +83,7 @@ var Universe = class Universe extends Visible {
   undraw(){
     this.lanes.forEach(lane => lane.undraw());
     this.stars.forEach(star => star.undraw());
+    super.undraw()
   }
 }
 
@@ -89,7 +93,6 @@ var Star = class Star extends Visible {
     this.universe = universe;
     this.navi = new astar.Vertex();
     this.universe.navi.add_vertex(this.navi);
-    this.drawn = false;
 
     this._vertex = null;
 
@@ -108,6 +111,8 @@ var Star = class Star extends Visible {
     });
 
     this._vertex.game_object = this;
+
+    super.draw();
   }
 
   get visible(){
@@ -128,6 +133,8 @@ var Star = class Star extends Visible {
     }
 
     $fourd.graph.remove_vertex(this._vertex);
+
+    super.undraw();
   }
 }
 
@@ -154,6 +161,8 @@ var Planet = class Planet extends Visible {
     this._vertex.game_object = this;
 
     $fourd.graph.add_edge(this.star.visible, this.visible, {});
+    
+    super.draw();
   }
 
   get visible(){
@@ -162,10 +171,12 @@ var Planet = class Planet extends Visible {
 
   expand(){
     this.buildings.map(building => building.draw());
+    super.expand()
   }
 
   collapse(){
     this.buildings.map(building => building.undraw());
+    super.collapse()
   }
 
   undraw(){
@@ -175,6 +186,8 @@ var Planet = class Planet extends Visible {
 
     this.buildings.forEach(building => building.undraw());
     $fourd.graph.remove_vertex(this._vertex)
+    
+    super.undraw();
   }
 }
 
@@ -182,7 +195,6 @@ var Building = class Building extends Visible {
   constructor(planet){
     super();
     this.vertex = null;
-    this.drawn = false;
     this.planet = planet;
   }
 
@@ -192,13 +204,14 @@ var Building = class Building extends Visible {
     }
 
     this._vertex = $fourd.graph.add_vertex({
-      cube: {size: 5, texture: 'House.jpg'},
+      cube: {size: 5, texture: 'img/House.jpg'},
       label: {size: 10, text: `Building ${this.planet.buildings.indexOf(this)}`}
     })
 
     this._vertex.game_object = this;
 
     $fourd.graph.add_edge(this.planet.visible, this.visible, {})
+    super.draw();
   }
 
   get visible(){
@@ -206,11 +219,11 @@ var Building = class Building extends Visible {
   }
 
   expand(){
-
+    super.expand();
   }
 
   collapse(){
-
+    super.collapse();
   }
 
   undraw(){
@@ -219,6 +232,8 @@ var Building = class Building extends Visible {
     }
     
     $fourd.graph.remove_vertex(this._vertex);
+    
+    super.undraw();
   }
 }
 
@@ -246,6 +261,8 @@ var Lane = class Lane extends Visible {
       this.target.visible, 
       {}
     );
+
+    super.draw();
   }
 
   get visible(){
@@ -257,6 +274,8 @@ var Lane = class Lane extends Visible {
       return;
     }
     $fourd.graph.remove_edge(this._edge);
+
+    super.undraw();
   }
 }
 
