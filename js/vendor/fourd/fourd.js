@@ -1,67 +1,11 @@
-/*
- four-d.js
- Joshua M. Moore
- April 23, 2015
- depends on: mrdoob's three.js, rev66
- https://github.com/mrdoob/three.js/tree/r66
- tested with r66
- 
- This is semantic version v0.1.0.
- See http://semver.org/
- 
- The API works as follows:
- Every function or code block marked api is part of the API.
- 
- Here's how it works:
- 
- var fourd = new FourD(); // instantiation
- fourd.init('#selector', {width: 600, height: 350}); // initialization.
- 
- var vertex_options = {
-   cube: {
-     width: 5, 
-     height: 5,
-     depth: 5,
-     color: 0x000000 // or: texture: 'path_to.png'
-     offset: Offset('bottom', 0) // optional
-   },
-   label: {
-		 size: 
-     text: 
-   }
- }
- 
- // or:
- 
- var vertex_options = {
-   size: 10,
-   texture: 'path_to,png'
- }
- 
- // or:
- 
- // leave out vertex options altogether.
- // default values will be used.
- 
- 
- var vertex1 = fourd.graph.add_vertex(vertex_options); // add a vertex
- var vertex2 = fourd.graph.add_vertex(vertex_options); // add another vertex
- 
- var edge_options = {}; // currently not defined, but this is how you would pass them.
- 
- var edge = fourd.graph.add_edge(vertex1, vertex2, edge_options);
- 
- fourd.graph.remove_edge(edge); // this is why you keep those variables
- fourd.graph.remove_vertex(vertex1);
- fourd.graph.remove_vertex(vertex2);
- 
-*/
-
 import $ from '/js/vendor/fourd/jquery.min.js';
-import * as THREE from '/js/vendor/fourd/r90.three.min.js';
-import '/js/vendor/fourd/OrbitControls.js';
-import '/js/vendor/fourd/FlyControls.js';
+import * as THREE from 'three';
+import {FlyControls} from 'three/examples/jsm/controls/FlyControls.js';
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import '/js/vendor/fourd/THREEx.WindowResize.js';
+
+console.log(FlyControls)
+console.log(OrbitControls)
 
 var FourD = function(){
 
@@ -825,7 +769,7 @@ var FourD = function(){
       that.render_loop[i]();
     }
 
-    if(controls instanceof THREE.OrbitControls){
+    if(controls instanceof OrbitControls){
       controls.target = selected.object.position.clone();
     }
 
@@ -914,7 +858,7 @@ var FourD = function(){
     this.camera = camera;
 
     clock = new THREE.Clock();
-    // controls = new THREE.OrbitControls( camera, renderer.domElement );
+    // controls = new OrbitControls( camera, renderer.domElement );
     
     this.toggle_controls = function({camera, renderer}, type, target){
       if(type !== undefined){
@@ -924,11 +868,11 @@ var FourD = function(){
         
         switch(type){
           case 'fly':
-            controls = new THREE.FlyControls(camera, renderer.domElement);
+            controls = new FlyControls(camera, renderer.domElement);
             break;
 
           case 'orbit':
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls = new OrbitControls(camera, renderer.domElement);
             selected = target;
             controls.target = selected.object.position.clone();
             break;
@@ -938,17 +882,17 @@ var FourD = function(){
       }
 
       if(controls === undefined){
-        controls = new THREE.FlyControls(camera, renderer.domElement);
+        controls = new FlyControls(camera, renderer.domElement);
         return;
       }
 
       controls.dispose();
-      if(controls instanceof THREE.FlyControls){
+      if(controls instanceof FlyControls){
         selected = target;
-        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls = new OrbitControls(camera, renderer.domElement);
         controls.target = selected.object.position.clone();
-      }else if(controls instanceof THREE.OrbitControls){
-        controls = new THREE.FlyControls(camera, renderer.domElement);
+      }else if(controls instanceof OrbitControls){
+        controls = new FlyControls(camera, renderer.domElement);
       }
 
     }.bind(this, {camera, renderer});

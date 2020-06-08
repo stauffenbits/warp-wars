@@ -14,6 +14,13 @@ $fourd.camera.position.z = -50;
 
 var Visible = class Visible {
   constructor(){
+    this._vertex = {
+      object: this
+    }
+
+    this._edge = {
+      object: this
+    }
   }
 
   get visible(){
@@ -132,7 +139,7 @@ var Planet = class Planet extends Visible {
 
     this._vertex.object = this;
 
-    $fourd.graph.add_edge(this.star.visible, this.visible);
+    $fourd.graph.add_edge(this.star.visible, this.visible, {});
   }
 
   get visible(){
@@ -167,7 +174,7 @@ var Building = class Building extends Visible {
 
     this._vertex.object = this;
 
-    $fourd.graph.add_edge(this.planet.visible, this.visible)
+    $fourd.graph.add_edge(this.planet.visible, this.visible, {})
   }
 
   get visible(){
@@ -201,7 +208,8 @@ var Lane = class Lane extends Visible {
   draw(){
     this._edge = $fourd.graph.add_edge(
       this.source.visible, 
-      this.target.visible
+      this.target.visible, 
+      {}
     );
   }
 
