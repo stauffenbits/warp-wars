@@ -1,1 +1,86 @@
-<!doctype html><html class="no-js"><head><meta charset="utf-8"><base href="https://stauffenbits.github.io/warp-wars/"><title>warp-wars</title><meta name="description" content=""><meta name="viewport" content="width=device-width, initial-scale=1"><meta property="og:title" content="warp-wars"><meta property="og:type" content=""><meta property="og:url" content=""><meta property="og:image" content=""><link rel="manifest" href="https://stauffenbits.github.io/warp-wars/site.webmanifest"><link rel="apple-touch-icon" href="https://stauffenbits.github.io/warp-wars/icon.878d0521.png"><link rel="stylesheet" href="https://stauffenbits.github.io/warp-wars/normalize.02b6c58e.css"><link rel="stylesheet" href="https://stauffenbits.github.io/warp-wars/bootstrap.min.feda0e84.css"><link rel="stylesheet" href="https://stauffenbits.github.io/warp-wars/main.7b478aa5.css"><meta name="theme-color" content="#fafafa"></head><body> <div id="container" class="w-100 h-100"> <div id="display" class="w-100 h-100 slide"> <canvas id="canvas" class="w-100 h-100"></canvas> </div> </div> <div id="hud"> <div class="progress"> <div id="population" class="progress-bar" role="progressbar" style="width:0"> ಠ_ಠ </div> </div> <div class="progress"> <div id="cash" class="progress-bar" role="progressbar" style="width:0"> $$$ </div> </div> <div class="progress"> <div id="energy" class="progress-bar" role="progressbar" style="width:0"> ⚛⚛⚛ </div> </div> <br> <label>Selected Star</label>: <output id="selected-star"></output><br> <label>Selected Planet</label>: <output id="selected-planet"></output><br> <div class="build hidden"> <button id="build-housing" class="clickable btn btn-primary" onclick="buildHousing()">Housing</button><br> <button id="build-generator" class="clickable btn btn-primary" onclick="buildGenerator()">Generator</button><br> </div> </div> <script src="https://stauffenbits.github.io/warp-wars/modernizr-3.11.2.min.bbf62f91.js"></script> <script src="https://stauffenbits.github.io/warp-wars/plugins.d13cab52.js"></script> <script src="https://stauffenbits.github.io/warp-wars/bootstrap.min.d5bda4e0.js"></script> <script src="https://stauffenbits.github.io/warp-wars/main.166455fa.js"></script> </body></html>
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+
+  <base href="http://stauffenbits.github.io/warp-wars/">
+
+  <title>warp-wars</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="warp-wars">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" href="/icon.83aa3da3.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="/normalize.1114379f.css">
+  <link rel="stylesheet" href="/bootstrap.min.108cc16f.css">
+  <link rel="stylesheet" href="/main.c52e0fe2.css">
+
+  <meta name="theme-color" content="#fafafa">
+
+<script src="/normalize.1114379f.js"></script><script src="/bootstrap.min.108cc16f.js"></script><script src="/main.c52e0fe2.js"></script></head>
+
+<body>
+  
+
+
+  <div id="container" class="w-100 h-100">
+    <div id="display" class="w-100 h-100 slide">
+      <canvas id="canvas" class="w-100 h-100"></canvas>
+    </div>
+  </div>
+
+  <div id="hud">
+
+    <div class="progress">
+      <div id="population" class="progress-bar" role="progressbar" style="width:0%">
+        ಠ_ಠ
+      </div>
+    </div>
+
+    <div class="progress">
+      <div id="food" class="progress-bar" role="progressbar" style="width:0%">
+        &#127860;
+      </div>
+    </div>
+
+    <div class="progress">
+      <div id="energy" class="progress-bar" role="progressbar" style="width:0%">
+        ⚛⚛⚛
+      </div>
+    </div>
+
+    <div class="progress">
+      <div id="money" class="progress-bar" role="progressbar" style="width:0%">
+        $$$
+      </div>
+    </div>
+
+    <br>
+
+    <label>Selected Star</label>: <output id="selected-star"></output><br>
+    <label>Selected Planet</label>: <output id="selected-planet"></output><br>
+    
+    <div class="build hidden">
+      <button class="clickable btn btn-primary" onclick="build('Housing')">Housing Station</button><br>
+      <button class="clickable btn btn-primary" onclick="build('Farm')">Farm Station</button><br>
+      <button class="clickable btn btn-primary" onclick="build('Solar')">Solar Station</button><br>
+      <button class="clickable btn btn-primary" onclick="build('Trade')">Trade Station</button><br>
+    </div>
+  </div>
+
+  <script src="/modernizr-3.11.2.min.659b9f56.js"></script>
+  <script src="/plugins.7f97feee.js"></script>
+  <script src="/bootstrap.min.cfcad316.js"></script>
+  <script src="/main.fb6bbcaf.js"></script>
+
+</body>
+
+</html>
