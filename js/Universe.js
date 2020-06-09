@@ -143,7 +143,6 @@ var Planet = class Planet extends Visible {
     super();
     this.star = star;
     this._vertex = null;
-    this.drawn = false;
 
     this.buildings = [];
   }
@@ -154,7 +153,7 @@ var Planet = class Planet extends Visible {
     }
 
     this._vertex = $fourd.graph.add_vertex({
-      cube: {size: 10, color: 0x000000},
+      cube: {size: 10, texture: 'img/Jupiter.png'},
       label: {size: 10, text: `Planet ${this.star.planets.indexOf(this)}`}
     });
 
@@ -194,7 +193,7 @@ var Planet = class Planet extends Visible {
 var Building = class Building extends Visible {
   constructor(planet){
     super();
-    this.vertex = null;
+    this._vertex = null;
     this.planet = planet;
   }
 
@@ -205,7 +204,7 @@ var Building = class Building extends Visible {
 
     this._vertex = $fourd.graph.add_vertex({
       cube: {size: 5, texture: 'img/House.jpg'},
-      label: {size: 10, text: `Building ${this.planet.buildings.indexOf(this)}`}
+      label: {size: 10, text: `Station ${this.planet.buildings.indexOf(this)}`}
     })
 
     this._vertex.game_object = this;

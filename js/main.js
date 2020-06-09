@@ -10,6 +10,10 @@ var CURRENT_PLANET = null;
 var CURRENT_BUILDING = null;
 
 Game.$fourd.make_resolve_click(function(vertex){
+  if(!vertex){
+    return;
+  }
+
   if(vertex.game_object instanceof Game.Star){
     starClick(vertex);
   }else if(vertex.game_object instanceof Game.Planet){
@@ -40,7 +44,7 @@ var starClick = function(vertex){
 }
 
 var planetClick = function(vertex){
-  if(CURRENT_PLANET){
+  if(CURRENT_PLANET !== null){
     CURRENT_PLANET.collapse();
   }
 
